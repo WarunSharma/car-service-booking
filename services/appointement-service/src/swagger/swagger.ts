@@ -16,7 +16,7 @@ const swaggerDefinition = {
 
 const options = {
   swaggerDefinition,
-  apis: ['./src/routes/*.ts'], // 👈 Where to look for JSDoc comments
+  apis: [process.env.NODE_ENV === 'production' ? './dist/routes/*.js': './src/routes/*.ts'], // 👈 Where to look for JSDoc comments
 };
 
 export default swaggerJSDoc(options);
