@@ -2,12 +2,14 @@ import express, { Response, Request } from 'express';
 import swagerUi from "swagger-ui-express";
 import swaggerDocs from './swagger/swagger';
 import appointmentRoutes from './routes/appointement.routes';
+import healthRoutes from './routes/health.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api', healthRoutes);
 app.use('/api-docs', swagerUi.serve, swagerUi.setup(swaggerDocs));
 
 app.listen(PORT, () => {
