@@ -3,7 +3,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'Car Service Booking API',
+    title: 'Car Service Appointment Booking API',
     version: '1.0.0',
     description: 'API for managing car service appointments',
   },
