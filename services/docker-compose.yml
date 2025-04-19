@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "4002:4002"
+    env_file:
+      - ./user-service/.env
+    volumes:
+      - ./user-service:/app
+    networks:
+      - carnet
+
+  appointement-service:
+    build: ./appointement-service
+    ports:
+      - "4001:4001"
+    env_file:
+      - ./appointement-service/.env
+    volumes:
+      - ./appointement-service:/app
+    networks:
+      - carnet
+
+networks:
+  carnet:
