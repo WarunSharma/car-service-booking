@@ -8,7 +8,6 @@ RUN npm install
 
 COPY prisma ./prisma
 COPY prisma/schema.prisma ./prisma/schema.prisma
-COPY prisma/dev.db ./prisma/dev.db
 RUN npx prisma generate
 
 COPY . .
@@ -24,7 +23,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
-COPY --from=builder /app/prisma/dev.db ./prisma/dev.db
+COPY --from=builder /app/prisma ./prisma
 
 ENV NODE_ENV=production
-CMD ["node", "dist/index.js"]
+CMD npx prisma migrate deploy && node dist/index.js

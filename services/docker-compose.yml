@@ -1,27 +1,29 @@
-version: '3.9'
+version: '3.8'
 
 services:
   user-service:
-    build: ./user-service
+    build:
+      context: ./user-service
     ports:
       - "4002:4002"
-    env_file:
-      - ./user-service/.env
-    volumes:
-      - ./user-service:/app
-    networks:
-      - carnet
+    environment:
+      DATABASE_URL: "postgresql://postgres:mysecretpassword@postgres:5432/postgres?schema=user"
+    depends_on:
+      - postgres
 
-  appointement-service:
-    build: ./appointement-service
+  appointment-service:
+    build:
+      context: ./appointement-service
     ports:
       - "4001:4001"
-    env_file:
-      - ./appointement-service/.env
-    volumes:
-      - ./appointement-service:/app
-    networks:
-      - carnet
+    environment:
+      DATABASE_URL: "postgresql://postgres:mysecretpassword@postgres:5432/postgres?schema=appointment"
+    depends_on:
+      - postgres
 
-networks:
-  carnet:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
