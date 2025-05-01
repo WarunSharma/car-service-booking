@@ -1,11 +1,13 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Signup from './pages/Signup'
 
 function App() {
 
   return (
-    <>
-      <h1 className='text-5xl font-bold'>Car Service Booking</h1>
-    </>
+    <Routes>
+      <Route path='/signup' element={<Signup />}/>
+    </Routes>
   )
 }
 
