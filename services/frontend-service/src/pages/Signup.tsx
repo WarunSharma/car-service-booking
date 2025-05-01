@@ -1,11 +1,22 @@
 import React, { useState } from "react";
+import userApi from "../services/userApi";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
+    try {
+      const res = await userApi.post("/api/auth/register", form);
+      if (res.status === 201) {
+        console.log("Signed in successfully");
+        navigate("/login");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

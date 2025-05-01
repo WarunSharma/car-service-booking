@@ -1,11 +1,23 @@
 import React, { useState } from "react";
+import userApi from "../services/userApi";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
+    try {
+      const res = await userApi.post("/api/auth/login", form);
+      if (res.status === 200) {
+        console.log("Logged in successfully");
+        localStorage.setItem("token", res?.data?.token || '');
+        navigate('/');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
