@@ -1,13 +1,14 @@
 import {Router, Request, Response} from 'express';
 import {getAppointement, updateAppointement, deleteAppointement, bookAppointement} from '../controllers/appointement.controller'
+import { authenticate } from '../middleware/auth';
 
 const router = Router();
 
-router.post('/', bookAppointement);
-router.get('/:id', getAppointement);
-router.get('/', getAppointement);
-router.put('/:id', updateAppointement);
-router.delete('/:id', deleteAppointement);
+router.post('/', authenticate, bookAppointement);
+router.get('/:id', authenticate, getAppointement);
+router.get('/', authenticate, getAppointement);
+router.put('/:id', authenticate, updateAppointement);
+router.delete('/:id', authenticate, deleteAppointement);
 
 /**
  * @swagger

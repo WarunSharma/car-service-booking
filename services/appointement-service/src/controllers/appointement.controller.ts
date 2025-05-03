@@ -9,13 +9,19 @@ type Appointement = {
     vehicleNumber: string
 }
 
-const bookAppointement = async (req: Request, res: Response) => {
-    const { name, date, vehicleNumber }: any = req.body;
-    const id = Date.now().toString();
+interface AuthenticatedRequest extends Request {
+    user?: {
+        name: string
+    }
+}
+
+const bookAppointement = async (req: AuthenticatedRequest, res: Response) => {
+    const { date, vehicleNumber }: any = req.body;
+    const name = req.user?.name || '';
 
     try {
         const appointement: Appointement = await prisma.appointment.create({
-            data: { name, date, vehicleNumber }
+            data: { name: name, date, vehicleNumber }
         })
 
         res.status(201).json({ "message": "Appointement booked", appointement });
@@ -48,9 +54,10 @@ const getAppointement = async (req: Request, res: Response) => {
     }
 }
 
-const updateAppointement = async (req: Request, res: Response) => {
+const updateAppointement = async (req: AuthenticatedRequest, res: Response) => {
     const id: string = req.params.id;
-    const { name, date, vehicleNumber } = req.body;
+    const { date, vehicleNumber } = req.body;
+    const name = req.user?.name || '';
 
     try {
         const existing: Appointement | null = await prisma.appointment.findUnique({
@@ -60,7 +67,7 @@ const updateAppointement = async (req: Request, res: Response) => {
         if (existing) {
             const updated: Appointement = await prisma.appointment.update({
                 where: { id },
-                data: { name, date, vehicleNumber }
+                data: { name: name, date, vehicleNumber }
             })
             res.json({ "message": "Appointement updated", appointement: updated });
         }
