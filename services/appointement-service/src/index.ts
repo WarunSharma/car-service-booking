@@ -1,6 +1,7 @@
 import express, { Response, Request } from 'express';
 import swagerUi from "swagger-ui-express";
 import dotenv from 'dotenv';
+import cors from 'cors';
 import swaggerDocs from './swagger/swagger';
 import appointmentRoutes from './routes/appointement.routes';
 import healthRoutes from './routes/health.routes';
@@ -10,6 +11,10 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4001;
 
+app.use(cors({
+    origin: 'http://localhost:4003',
+    credentials: true,
+}))
 app.use(express.json());
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api', healthRoutes);
