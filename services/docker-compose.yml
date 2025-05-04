@@ -17,6 +17,7 @@ services:
     ports:
       - "4001:4001"
     environment:
+      USER_SERVICE_URL: "http://user-service:4002"
       DATABASE_URL: "postgresql://postgres:mysecretpassword@postgres:5432/postgres?schema=appointment"
     depends_on:
       - postgres

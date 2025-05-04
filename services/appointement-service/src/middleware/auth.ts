@@ -9,11 +9,13 @@ interface AuthenticatedUser {
 }
 
 export const authenticate = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+    const USER_SERVICE_URL = process.env.USER_SERVICE_URL;
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader) throw new Error('No token provided');
 
-        const response = await axios.get('http://user-service:4002/api/auth/profile', {
+        const response = await axios.get(`${USER_SERVICE_URL}/api/auth/profile`, {
             headers: { Authorization: authHeader }
         });
 
