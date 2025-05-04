@@ -21,6 +21,15 @@ services:
     depends_on:
       - postgres
 
+  frontend-service:
+    build:
+      context: ./frontend-service
+    ports:
+      - "4003:4003" # Serve via Nginx on port 80 internally
+    depends_on:
+      - user-service
+      - appointment-service    
+
   postgres:
     image: postgres
     environment:
