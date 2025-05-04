@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import userApi from "../services/userApi";
 import { useNavigate } from "react-router-dom";
+import BookingList from "../components/BookingList";
 
 function Home() {
   const [user, setUser] = useState<{id: number, name: string, email: string, createdAt: string} | null>(null);
@@ -43,6 +44,7 @@ function Home() {
       <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={logout}>
         Logout
       </button>
+      <BookingList />
     </div>
   );
 }

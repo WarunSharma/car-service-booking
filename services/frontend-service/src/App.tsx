@@ -12,6 +12,7 @@ function App() {
     <Routes>
       <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>}/>
       <Route path='/book' element={<ProtectedRoute><BookAppointment /></ProtectedRoute>}/>
+      <Route path="/book/edit/:id" element={<BookAppointment />} />
       <Route path='/signup' element={<Signup />}/>
       <Route path='/login' element={<Login />}/>
     </Routes>
