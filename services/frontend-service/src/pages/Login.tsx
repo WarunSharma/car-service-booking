@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  console.log("User API URL:", import.meta.env.VITE_USER_API_URL);
+  console.log(
+    "Appointement API URL:",
+    import.meta.env.VITE_APPOINTMENT_API_URL
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -12,8 +17,8 @@ function Login() {
       const res = await userApi.post("/api/auth/login", form);
       if (res.status === 200) {
         console.log("Logged in successfully");
-        localStorage.setItem("token", res?.data?.token || '');
-        navigate('/');
+        localStorage.setItem("token", res?.data?.token || "");
+        navigate("/");
       }
     } catch (error) {
       console.error(error);

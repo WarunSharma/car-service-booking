@@ -6,8 +6,6 @@ import BookingList from "../components/BookingList";
 function Home() {
   const [user, setUser] = useState<{id: number, name: string, email: string, createdAt: string} | null>(null);
   const navigate = useNavigate();
-  console.log('User API URL:', import.meta.env.VITE_USER_API_URL);
-  console.log('Appointement API URL:', import.meta.env.VITE_APPOINTMENT_API_URL);
   
   useEffect(() => {
     try {
